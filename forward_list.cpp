@@ -41,6 +41,28 @@ public:
         }
     }
 
+    forward_list& operator=(const forward_list& rhs){
+        if (this != &rhs){
+            Node* current = m_head;
+            Node* rhs_current = rhs.m_head;
+
+            while (current){
+                Node* tmp = current -> m_next;
+                delete current;
+                current = tmp;
+            }
+
+            m_head = new Node (rhs.m_head -> m_data);
+            current = m_head;
+            while (rhs_current -> m_next){
+                current -> m_next = new Node(rhs_current -> m_next -> m_data);
+                current = current -> m_next;
+                rhs_current = rhs_current -> m_next;
+            }
+        }
+            return *this;
+    }
+
     ~forward_list(){
         std::cout << "list dtor\n";
         Node* current = m_head;
@@ -50,6 +72,8 @@ public:
             current = m_next;
         }
     }
+
+
 
     void print(){
         Node* current = m_head;
