@@ -29,6 +29,13 @@ namespace MyHash{
         using const_iterator = typename std::list<value_type>::const_iterator;
         using local_iterator = typename std::list<value_type>::iterator;
         using const_local_iterator = typename std::list<value_type>::cons_iterator;
+        iterator begin() const;/*{ return data.cbegin();} */
+        iterator end() const; /* {return data.cend();} */
+        local_iterator begin(size_t bucket); /* {return buckets[bucket].begin();} */
+        local_iterator end(size_t bucket); /* {return buckets[bucket].end();} */
+        const_local_iterator begin(size_t bucket) const; /* {return buckets[bucket].cend();} */
+        const_local_iterator end(size_t bucket) const; /* {return buckets[bucket].cend();} */
+
 
         template <typename ValueType, typename Allocator>
         class node_type{
@@ -47,6 +54,9 @@ namespace MyHash{
             ValueType value;
             Allocator allocator;
             bool allocated;
+            //std::vector<std::list<value_type>> buckets{10}; //*** for begin, end..operations
+            //std::list<value_type> data; // Used for global iteration
+            
         };
 
     private:
