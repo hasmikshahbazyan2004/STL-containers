@@ -29,7 +29,25 @@ namespace MyHash{
         using const_iterator = typename std::list<value_type>::const_iterator;
         using local_iterator = typename std::list<value_type>::iterator;
         using const_local_iterator = typename std::list<value_type>::cons_iterator;
-        using node_type = 
+
+        template <typename ValueType, typename Allocator>
+        class node_type{
+        public:
+            using allocator_type = Allocator;
+
+            node_type(): allocated(false){}
+            node_type(const ValueType& val, const Allocator& alloc): value(val), allocator(alloc), allocated(true){}
+
+            bool empty() const noexceptxcept;
+            void swap(node_type& other) noexcept;
+            ValueType& value() noexcept;
+            const ValueType& value() const noexcept;
+
+        private:
+            ValueType value;
+            Allocator allocator;
+            bool allocated;
+        };
 
     private:
 
