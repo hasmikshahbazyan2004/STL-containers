@@ -59,8 +59,20 @@ namespace MyHash{
             
         };
 
-    private:
+        node_type<value_type, allocator_type> extract(const key_type& key);
 
+        template <typename Iterator, typename NodeType>
+        struct insert_return_type{
+            Iterator position;
+            bool inserted;
+            NodeType node;
+        };
+
+        insert_return_type<iterator, node_type<value_type, allocator_type>> insert(const value_type& value);
+
+
+    private:
+        //std::vector<std::list<value_type>> buckets{10};
 
     };
 
