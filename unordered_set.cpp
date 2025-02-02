@@ -1,5 +1,26 @@
 #include <iostream>
 #include "unordered_set.hpp"
+using namespace std;
+using namespace MyHash;
+
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(): unordered_set(16){cout << "default\n";}
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(size_t bucket, 
+                                                                    const Hash& hash,
+                                                            const key_equal& equal,
+                                                                    const Allocator& alloc): buckets(bucket){cout << "Parametrized\n";}
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(const Allocator& alloc): buckets(16), 
+                                                hash_function(Hash()), 
+                                                equal_function(KeyEqual()), 
+                                                allocator(Allocator()),
+                                                element_count(0){}
+
+
 
 /* insert_return_type<iterator, node_type<value_type, allocator_type>> insert(const value_type& value) {
     size_t bucket_index = bucket(value);
@@ -23,5 +44,5 @@
         }
     }
     return node_type<value_type, allocator_type>();
-}
- */
+}*/
+ 
