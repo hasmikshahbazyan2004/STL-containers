@@ -24,8 +24,8 @@ namespace MyHash{
         using allocator_type = Allocator;
         using reference = value_type&;
         using const_reference = const value_type&;
-        using pointer = std::allocator_traits<Allocator>::pointer;
-        using const_pointer = std::allocator_traits<Allocator>::const_pointer;
+        using pointer = typename std::allocator_traits<Allocator>::pointer;
+        using const_pointer = typename std::allocator_traits<Allocator>::const_pointer;
         using iterator = typename std::list<value_type>::const_iterator;
         using const_iterator = typename std::list<value_type>::const_iterator;
         using local_iterator = typename std::list<value_type>::iterator;
@@ -78,6 +78,8 @@ namespace MyHash{
         unordered_set(size_type bucket_count,
                         const Allocator& alloc): unordered_set(bucket_count, Hash(), key_equal(), alloc){cout << "bucket size, allocator\n";}
 
+        unordered_set(size_type bucket_count, const Hash& hash, const Allocator& alloc): unordered_set(bucket_count, hash, key_equal(), alloc){cout << "bucket size, hash, allocator\n";}
+
         explicit unordered_set(const Allocator& alloc);
 
         template <class InputIt>
@@ -97,7 +99,15 @@ namespace MyHash{
                                                                 hash,
                                                                 key_equal(),
                                                                 alloc){}
-        
+unordered_set(const unordered_set& other);
+unordered_set(const unordered_set& other, const Allocator& alloc);
+
+unordered_set(unordered_set&& other);
+unordered_set(unordered_set&& other, const Allocator& alloc);
+
+
+
+               
 
         insert_return_type<iterator, node_type<value_type, allocator_type>> insert(const value_type& value);
 

@@ -20,6 +20,40 @@ unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(const Allocator& al
                                                 allocator(Allocator()),
                                                 element_count(0){}
 
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(const unordered_set& other): buckets(other.buckets),
+                                                                                            bucket_count(other.bucket_count),
+                                                                                            element_count(other.element_count),
+                                                                                            hash_function(other.hash_function),
+                                                                                            equal_function(other.equal_function),
+                                                                                            allocator(other.allocator){cout << "cop ctor\n";}
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(const unordered_set& other, const Allocator& alloc): buckets(other.buckets),
+                                                                                                                    bucket_count(other.bucket_count),
+                                                                                                                    element_count(other.element_count),
+                                                                                                                    hash_function(other.hash_function),
+                                                                                                                    equal_function(other.equal_function),
+                                                                                                                    allocator(alloc){cout << "copy ctor + allocator\n";}
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(unordered_set&& other): buckets(move(other.buckets)),
+                                                                                        bucket_count(move(other.bucket_count)),
+                                                                                        element_count(move(other.element_count)),
+                                                                                        hash_function(move(other.hash_function)),
+                                                                                        equal_function(move(other.equal_function)),
+                                                                                        allocator(move(other.allocator)){cout << "move\n";}
+
+template <typename Key, typename Hash, typename KeyEqual, typename Allocator>
+unordered_set<Key, Hash, KeyEqual, Allocator>::unordered_set(unordered_set&& other, const Allocator& alloc): buckets(move(other.buckets)),
+                                                                                                                bucket_count(move(other.bucket_count)),
+                                                                                                                element_count(move(other.element_count)),
+                                                                                                                hash_function(move(other.hash_function)),
+                                                                                                                equal_function(move(other.equal_function)),
+                                                                                                                allocator(move(alloc)){cout << "copy ctor + allocator\n";}-
+
+
+
 
 
 /* insert_return_type<iterator, node_type<value_type, allocator_type>> insert(const value_type& value) {
